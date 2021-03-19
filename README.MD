@@ -1,3 +1,7 @@
+This project is based on https://github.com/lintingzhen/commitizen-go
+
+Credits go to https://github.com/lintingzhen
+
 # Commitizen-go
 > Command line utility to standardize git commit messages, golang version.
 
