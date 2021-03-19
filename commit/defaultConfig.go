@@ -5,7 +5,7 @@ var defaultConfig = `{
 		"items": [
 			{
 				"name": "type",
-				"desc": "Select the type of change that you're committing:",
+				"desc": "Select the type of change that you're committing1:",
 				"form": "select",
 				"options": [
 					{ "name": "feat", "desc": "feat: A new feature" },
