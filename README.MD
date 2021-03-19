@@ -1,6 +1,8 @@
 # Commitizen-go
 > Command line utility to standardize git commit messages, golang version.
 
+Support git hooks
+
 ![demo](docs/images/demo.gif)
 
 Contents
