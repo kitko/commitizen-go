@@ -26,6 +26,30 @@ func InstallSubCmd(srcFilePath, subCmdName string) (string, error) {
 	return dstFilePath, nil
 }
 
+func InstallHookCmd() error {
+	rootPath, err := rootPath()
+	if err != nil {
+		return err
+	}
+
+	cmdBody := "#!/bin/sh\n	exec < /dev/tty && commitizen-go --hook || true"
+	hookFile := filepath.Join(rootPath, ".git", "hooks", "prepare-commit-msg")
+
+	err = os.WriteFile(hookFile, []byte(cmdBody), 0755) // file have to be executable
+	if err != nil {
+		return err
+	}
+
+	// disable default text editor
+	cmd := exec.Command("git", "config", "core.editor", ":")
+
+	if _, err := cmd.Output(); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func IsCurrentDirectoryGitRepo() (bool, error) {
 	// run git remote command
 	cmd := exec.Command("git", "remote")
@@ -92,16 +116,14 @@ func CommitMessage(message []byte, all bool) (string, error) {
 	}
 }
 
-func PreCommitMessage(message []byte) error {
+func PrepareCommitMessage(message []byte) error {
 
-	cmd := exec.Command("git", "rev-parse", "--show-toplevel")
-
-	rootPath, err := cmd.Output()
+	rootPath, err := rootPath()
 	if err != nil {
 		return err
 	}
 
-	err = os.WriteFile(fmt.Sprintf("%s/.git/COMMIT_EDITMSG", strings.TrimSuffix(string(rootPath), "\n")), message, 0644)
+	err = os.WriteFile(fmt.Sprintf("%s/.git/COMMIT_EDITMSG", rootPath), message, 0644)
 	if err != nil {
 		return err
 	}
@@ -142,6 +164,17 @@ func execPath() (string, error) {
 
 	if err := cmd.Wait(); err != nil {
 		return "", err
+	}
+
+	return strings.TrimSpace(string(result)), nil
+}
+
+func rootPath() (string, error) {
+	cmd := exec.Command("git", "rev-parse", "--show-toplevel")
+
+	result, err := cmd.Output()
+	if err != nil {
+		return "", fmt.Errorf("could not find root path of the project err:%w", err)
 	}
 
 	return strings.TrimSpace(string(result)), nil

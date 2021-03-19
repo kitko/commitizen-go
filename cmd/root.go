@@ -23,9 +23,10 @@ var (
 	hook    bool
 	debug   bool
 	rootCmd = &cobra.Command{
-		Use:  "commitizen-go",
-		Long: `Command line utility to standardize git commit messages, golang version.`,
-		Run:  RootCmd,
+		Use:          "commitizen-go",
+		Long:         `Command line utility to standardize git commit messages, golang version.`,
+		Run:          RootCmd,
+		SilenceUsage: true,
 	}
 )
 
@@ -40,6 +41,7 @@ func init() {
 
 	rootCmd.AddCommand(VersionCmd)
 	rootCmd.AddCommand(InstallCmd)
+	rootCmd.AddCommand(InstallHookCmd)
 }
 
 func initConfig() {
@@ -89,7 +91,7 @@ func RootCmd(command *cobra.Command, args []string) {
 	if message, err := commit.FillOutForm(); err == nil {
 
 		if hook {
-			err := git.PreCommitMessage(message)
+			err := git.PrepareCommitMessage(message)
 			if err != nil {
 				log.Printf("run pre commit hook failed, err=%v\n", err)
 			}

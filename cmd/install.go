@@ -21,3 +21,15 @@ var InstallCmd = &cobra.Command{
 		}
 	},
 }
+
+var InstallHookCmd = &cobra.Command{
+	Use:   "install-hook",
+	Short: "Install this tool to ./git/hooks/prepare-commit-msg",
+	Run: func(cmd *cobra.Command, args []string) {
+		if err := git.InstallHookCmd(); err != nil {
+			fmt.Printf("Install commitizen as hook failed, err=%v\n", err)
+		} else {
+			fmt.Printf("Successful install commitizen as git hook in .git/hoooks/prepare-commit-msg\n")
+		}
+	},
+}

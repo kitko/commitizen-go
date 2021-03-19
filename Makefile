@@ -21,6 +21,8 @@ GIT_EXEC_PATH := $(shell git --exec-path)
 all: ${TARGET}
 install: 
 	$(COPY) commitizen-go $(GIT_EXEC_PATH)/git-cz
+install-hook: 
+	commitizen-go install-hook
 clean:
 	rm -rf ${TARGET}
     

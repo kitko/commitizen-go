@@ -6,12 +6,27 @@ Support git hooks
 ![demo](docs/images/demo.gif)
 
 Contents
-- Getting Started
+- Installation
 - Usage
 - Configure
 
-## Getting Started
-### installation with source code:
+## Installation
+
+```
+$ go install github.com/kitko/commitizen-go
+```
+### setup as git command
+
+```
+$ commitizen-go install
+```
+### setup as git hook
+
+```
+$ commitizen-go install-hook
+```
+
+### installation with source code as git command:
 ```
 $ make && make install
 ```
@@ -19,99 +34,37 @@ or
 ```
 $ make && ./commitizen-go install
 ```
-### commit with commitizen
+### installation with source code as git hook:
+```
+$ make && make install-hook
+```
+or 
+```
+$ make && ./commitizen-go install-hook
+```
+
+## Usage
+
+### commit with commitizen as git command
 ```
 $ git cz
 ```
 
-## Install and run as git hook
-
-### Checkout repo
-
-```
-$ git clone ....
-```
-
-### Install
-
-```
-$ go install
-```
-
-### Setup as git hook, and push in repo
-
-Copy folder `.githooks` in your project folder
-
-```
-$ cp .githooks /path/to/project
-```
-Switch to `/path/to/project`
-
-```
-$ cd /path/to/project
-```
-Make file `.githooks/prepare-commit-msg` executable if it's not
-
-```
-$ chmod +x .githooks/prepare-commit-msg
-```
-
-Setup git config to use `.githooks` folder
-
-```
-$ git config core.hooksPath .githooks
-```
-Turn off default editor (witch is replaced by this tool)
-
-```
-git config core.editor :
-```
-Now you can use it like this :)
-
+### commit with commitizen as git hook
 ```
 $ git commit
 ```
 
-### Setup as git hook, local in .git folder
-
-Copy file `.githooks/prepare-commit-msg` in your project `.git/hooks` folder
-
 ```
-$ cp .githooks/prepare-commit-msg /path/to/project/.git/hooks
-```
-Switch to `/path/to/project`
-
-```
-$ cd /path/to/project
-```
-Make file `.git/hooks/prepare-commit-msg` executable if it's not
-
-```
-$ chmod +x .git/hooks/prepare-commit-msg
-```
-Turn off default editor (witch is replaced by this tool)
-
-```
-git config core.editor :
-```
-Now you can use it like this :)
-
-```
-$ git commit
-```
-
-
-## Usage
-```
-
 Usage:
   commitizen-go [flags]
   commitizen-go [command]
 
 Available Commands:
-  help        Help about any command
-  install     Install this tool to git-core as git-cz
-  version     Print version information and quit
+  help        	Help about any command
+  install     	Install this tool to git-core as git-cz
+  install-hook 	Install this tool to ./git/hooks/prepare-commit-msg
+  version     	Print version information and quit
 
 Flags:
   -a, --all     tell the command to automatically stage files that have been modified and deleted, but new files you have not told Git about are not affected
