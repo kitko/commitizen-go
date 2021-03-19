@@ -13,7 +13,7 @@ var defaultConfig = `{
 					{ "name": "docs", "desc": "docs: Documentation only changes" },
 					{
 					  "name": "style",
-					  "desc": "style: Changes that do not affect the meaning of the code\n            (white-space, formatting, missing semi-colons, etc)"
+					  "desc": "style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)"
 					},
 					{
 					  "name": "refactor",
@@ -26,7 +26,7 @@ var defaultConfig = `{
 					{ "name": "test", "desc": "test: Adding missing tests" },
 					{
 					  "name": "chore",
-					  "desc": "chore: Changes to the build process or auxiliary tools\n            and libraries such as documentation generation"
+					  "desc": "chore: Changes to the build process or auxiliary tools and libraries such as documentation generation"
 					},
 					{ "name": "revert", "desc": "revert: Revert to a commit" },
 					{ "name": "WIP", "desc": "WIP: Work in progress" }
